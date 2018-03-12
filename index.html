@@ -1,59 +1,90 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <!--<html manifest="snake.appcache">-->
+
 <head>
-<!--
+    <!--
 
 JavaScript Snake
 By Patrick Gillespie
 http://patorjk.com/games/snake
 
-Source code is available here: https://github.com/patorjk/JavaScript-Snake
+Forked By Chris Love
+and upgraded to a Progressive Web App (PWA)!
 
---> 
+Source code is available here: https://github.com/docluv/JavaScript-Snake
+
+-->
     <title>JavaScript Snake</title>
-    <link rel=stylesheet id=style type=text/css href=./css/main-snake.css />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="manifest" href="manifest.json">
+
+    <link rel="icon" type="image/png" href="favicon-48-48.png">
+
+    <meta name="theme-color" content="#0000A8"/>
+
+    <link rel="stylesheet" id="style" type="text/css" href="css/main-snake.css" />
     <button onclick=getTheme()>Click to use this theme.</button>
     <select id="select">
         <option>Dark Theme</option>
         <option>Revert To Original</option>
     </select>
-    <div id="mode-wrapper">Select which mode you would like to play in.<br /><button id="Easy">Easy</button><br /><button id="Medium">Medium</button><br /><button id="Difficult">Difficult</button></div>
-<button id="high-score">Get your current high score for this game.</button>
-<script>
-function getTheme () {
-    function changeTheme (Theme) {
-        document.getElementById('style').setAttribute('href', Theme);
-    }
-    var index = document.getElementById("select").selectedIndex;
-    switch (index) {
-        case 0: 
-          changeTheme('css/dark-snake.css');
-          break;
-          case 1: changeTheme('css/main-snake.css');
-    }
-}
-if (navigator.onLine && window.location.hostname === 'patorjk.com') {
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-3312460-1']);
-    _gaq.push(['_trackPageview']);
+    <div id="mode-wrapper">Select which mode you would like to play in.
+        <br />
+        <button id="Easy">Easy</button>
+        <br />
+        <button id="Medium">Medium</button>
+        <br />
+        <button id="Difficult">Difficult</button>
+    </div>
+    <button id="high-score">Get your current high score for this game.</button>
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-}
-</script>
 </head>
+
 <body>
     <div id="game-area" tabindex="0">
     </div>
-    <script type="text/javascript" src="./js/snake.js"></script>
+    <script>
+        function getTheme() {
+            function changeTheme(Theme) {
+                document.getElementById('style').setAttribute('href', Theme);
+            }
+            var index = document.getElementById("select").selectedIndex;
+            switch (index) {
+                case 0:
+                    changeTheme('css/dark-snake.css');
+                    break;
+                case 1: changeTheme('css/main-snake.css');
+            }
+        }
+
+    </script>
+    <script type="text/javascript" src="js/snake.js"></script>
     <script type="text/javascript">
-    var mySnakeBoard = new SNAKE.Board(  {
-                                            boardContainer: "game-area",
-                                            fullScreen: true
-                                        });    
+        var mySnakeBoard = new SNAKE.Board({
+            boardContainer: "game-area",
+            fullScreen: true
+        });    
+
+
+        if ('serviceWorker' in navigator) {
+                        
+            navigator.serviceWorker.register('/sw.js').then(function (registration) {
+                
+                // Registration was successful
+
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+
+            }).catch(function (err) {
+                // registration failed :(
+
+                console.log('ServiceWorker registration failed: ', err);
+            });
+
+        }
+
     </script>
 </body>
+
 </html>

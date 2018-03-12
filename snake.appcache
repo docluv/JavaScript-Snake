@@ -1,0 +1,11 @@
+CACHE MANIFEST
+
+        "/",
+        "css/main-snake.css",
+        "css/dark-snake.css",
+        "css/images/dark-snakeblock.png",
+        "css/images/dead-dark-snakeblock.png",
+        "css/images/deadblock_border.png",
+        "css/images/deadblock.png",
+        "css/images/snakeblock.png",
+        "js/snake.js"
